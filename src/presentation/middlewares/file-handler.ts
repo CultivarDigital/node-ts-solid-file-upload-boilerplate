@@ -10,7 +10,7 @@ export const fileHandler = (req: Request, _: Response, next: NextFunction) => {
       | Express.Multer.File[];
   };
 
-  const mappedFiles: File[] = (files as Express.Multer.File[]).map((file) => ({
+  const mappedFiles: File[] = (files as Express.Multer.File[] || []).map((file) => ({
     name: file.originalname,
     type: file.mimetype,
     content: file.buffer,
