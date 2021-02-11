@@ -19,7 +19,7 @@ export class AWSFileUploader implements FileUploader {
     return `${file.name}-${timestamp}.${file.extension}`;
   }
 
-  private async uploadFile(file: File): Promise<string> {
+  private async uploadFile(file: File): Promise<UploadedFile> {
     const timestamp = Date.now();
     const fileKey = this.generateFileKey(file, timestamp);
     await this.client
@@ -32,7 +32,10 @@ export class AWSFileUploader implements FileUploader {
       })
       .promise();
 
-    return `${this.bucketName}/${fileKey}`;
+    return {
+      path: `${this.bucketName}/${fileKey}`,
+      name: fileKey,
+    };
   }
 
   async upload(
@@ -40,16 +43,13 @@ export class AWSFileUploader implements FileUploader {
   ): Promise<UploadedFile | UploadedFile[] | undefined> {
     try {
       if (Array.isArray(files)) {
-        const paths = await Promise.all(
+        const uploadResult = await Promise.all(
           files.map(async (file) => this.uploadFile(file))
         );
-        return paths.map((path) => ({ path }));
+        return uploadResult;
       }
 
-      const path = await this.uploadFile(files);
-      return {
-        path,
-      };
+      return await this.uploadFile(files);
     } catch (error) {
       console.log("error", error);
       return undefined;

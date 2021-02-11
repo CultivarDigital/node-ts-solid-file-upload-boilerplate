@@ -20,7 +20,6 @@ export class FileUploadController implements Controller {
 
       return ok(filesPaths);
     } catch (error) {
-      console.log("error", error);
       return serverError({ message: error.message });
     }
   }

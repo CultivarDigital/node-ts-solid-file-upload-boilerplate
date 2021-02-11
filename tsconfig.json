@@ -8,6 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
     "rootDir": "src",
     "baseUrl": "src",
     "paths": {
