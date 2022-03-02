@@ -50,8 +50,7 @@ export class AWSFileUploader implements FileUploader {
       }
 
       return await this.uploadFile(files);
-    } catch (error) {
-      console.log("error", error);
+    } catch {
       return undefined;
     }
   }

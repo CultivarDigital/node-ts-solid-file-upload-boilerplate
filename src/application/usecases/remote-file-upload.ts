@@ -1,8 +1,9 @@
+import "reflect-metadata"
 import { inject, injectable } from "tsyringe";
 
 import { File, UploadedFile } from "@/domain/models";
 import { FileUpload } from "@/domain/usecases";
-import { FileUploader, DirectPublisher } from "@/application/protocols";
+import { FileUploader } from "@/application/protocols";
 import { FileUploadError } from "@/domain/errors";
 
 @injectable()
@@ -10,8 +11,6 @@ export class RemoteFileUpload implements FileUpload {
   constructor(
     @inject("FileUploader")
     private readonly fileUploader: FileUploader,
-    @inject("DirectPublisher")
-    private readonly directPublisher: DirectPublisher
   ) {}
 
   async upload(files: File[]): Promise<UploadedFile[]> {
@@ -20,8 +19,6 @@ export class RemoteFileUpload implements FileUpload {
     if (!uploadedFiles) {
       throw new FileUploadError();
     }
-
-    await this.directPublisher.publishDirect("files.uploaded", uploadedFiles);
 
     return uploadedFiles as UploadedFile[];
   }

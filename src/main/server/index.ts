@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/upload", uploadRouter);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4008;
 app.listen(PORT, () => console.log(`Upload Files listening at ${PORT}`));
 
 export default app;

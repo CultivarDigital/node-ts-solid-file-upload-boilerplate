@@ -5,6 +5,6 @@ WORKDIR /app
 COPY package.json .
 RUN yarn
 COPY . .
-EXPOSE 5000
+EXPOSE 4008
 
 CMD ["yarn", "start:dev"]

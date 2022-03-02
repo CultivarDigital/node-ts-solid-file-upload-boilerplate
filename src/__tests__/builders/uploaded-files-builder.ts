@@ -8,9 +8,11 @@ export class UploadedFilesBuilder {
   aListOfUploadedFiles(): UploadedFilesBuilder {
     this.uploadedFiles = [
       {
+        name: faker.random.word(),
         path: faker.random.word(),
       },
       {
+        name: faker.random.word(),
         path: faker.random.word(),
       },
     ];

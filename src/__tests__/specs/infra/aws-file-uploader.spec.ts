@@ -50,6 +50,7 @@ describe("AWSFileUploader", () => {
     const timestamp = mockDate();
     const result = await sut.upload(file);
     expect(result).toEqual({
+      name: `${getFileKey(file, timestamp)}`,
       path: `aws-bucket/${getFileKey(file, timestamp)}`,
     });
   });
@@ -89,9 +90,11 @@ describe("AWSFileUploader", () => {
     const result = await sut.upload(files);
     expect(result).toEqual([
       {
+        name: `${getFileKey(files[0], timestamps[0])}`,
         path: `aws-bucket/${getFileKey(files[0], timestamps[0])}`,
       },
       {
+        name: `${getFileKey(files[1], timestamps[1])}`,
         path: `aws-bucket/${getFileKey(files[1], timestamps[1])}`,
       },
     ]);
